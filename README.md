@@ -20,7 +20,7 @@ File Box Transfer is a web application.  Once running a web browser may be used 
 the application, and files may be uploaded from the source computer, and then downloaded to the
 destination computer. 
 
-![application screenshot in Firefox](http:src/screenshot.png)
+![application screenshot in Firefox](https://github.com/OliverPavey/file-transfer-box/blob/master/img/screenshot.png)
 
 ## Building
 
