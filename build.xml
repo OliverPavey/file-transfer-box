@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE project>
+<project name="File Transfer Box" default="jar">
+
+	<property name="libs" value="WebContent/WEB-INF/lib" />
+	<property name="classes" value="build/bin/WEB-INF/classes" />
+
+	<path id="libs.classpath">
+		<fileset dir="${libs}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<target name="clean">
+		<delete dir="build"/>
+	</target>
+	
+	<target name="libs">
+		<get skipexisting="true" dest="${libs}" src="http://central.maven.org/maven2/javax/servlet/jstl/1.2/jstl-1.2.jar" />
+		<get skipexisting="true" dest="${libs}" src="http://central.maven.org/maven2/javax/servlet/javax.servlet-api/3.0.1/javax.servlet-api-3.0.1.jar" />
+		<get skipexisting="true" dest="${libs}" src="http://central.maven.org/maven2/commons-io/commons-io/2.1/commons-io-2.1.jar" />
+		<get skipexisting="true" dest="${libs}" src="http://central.maven.org/maven2/commons-fileupload/commons-fileupload/1.2.2/commons-fileupload-1.2.2.jar" />
+		<get skipexisting="true" dest="${libs}" src="http://central.maven.org/maven2/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar" />
+		<get skipexisting="true" dest="${libs}" src="http://central.maven.org/maven2/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar" />
+	</target>
+	
+	<target name="compile" depends="libs">
+        <mkdir dir="${classes}"/>
+        <javac srcdir="src" destdir="${classes}" includeantruntime="false" source="1.8" target="1.8">
+        	<classpath refid="libs.classpath" />
+        </javac>
+    </target>
+    
+    <target name="static">
+    	<mkdir dir="build/bin" />
+    	<copy todir="build/bin">
+    		<fileset dir="WebContent" excludes="**/javax.servlet-api-3.0.1.jar" />
+    	</copy>
+    </target>
+	
+    <target name="jar" depends="static,compile">
+        <jar destfile="docker/ftb.jar" basedir="build/bin">
+        </jar>
+    </target>
+    	
+</project>
